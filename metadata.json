@@ -1,0 +1,8 @@
+{
+  "name": "Remix ROCKEYE - Poratha Project Management",
+  "description": "Integrated enterprise business management solution for Poratha Corporation under the ROCKEYE brand.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

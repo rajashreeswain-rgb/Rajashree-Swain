@@ -1,0 +1,972 @@
+# PROMPT 3 — IMPLEMENT PROJECT MANAGEMENT AND BUDGET & COST CONTROL
+
+## ROLE
+
+Act as a Senior ERP Solution Architect, Functional Business Analyst, Project Management Consultant and Expert React + TypeScript Developer.
+
+Continue developing the existing **ROCKEYE Poratha Business Management** application.
+
+Implement two connected main modules:
+
+1. Project Management.
+2. Budget & Cost Control.
+
+Follow the existing application architecture, design language, navigation, master data and business rules established in Steps 1 and 2.
+
+This is an extension of the existing application, NOT a new application.
+
+Do not replace the existing application shell, reset existing data or remove any previously implemented functionality.
+
+---
+
+# PART A — PROJECT MANAGEMENT
+
+## 1. BUSINESS PURPOSE
+
+Project Management enables Poratha to register and manage confirmed projects after contract confirmation.
+
+It provides a centralized workspace to view project information, maintain project details, manage milestones and schedules, monitor status and assign project managers.
+
+Project Management must connect directly with Budget & Cost Control and subsequent transaction modules.
+
+IMPORTANT: Project Registration, Project Details, Project Lifecycle, Project Milestones, Project Schedule, Project Status and Project Manager Assignment are functions within ONE Project Management workspace.
+
+They are NOT separate main modules or separate sub-modules.
+
+## 2. PROJECT MANAGEMENT NAVIGATION AND SCREEN STRUCTURE
+
+When the user clicks **Project Management** in the main sidebar, open ONE unified Project Management workspace.
+
+The default screen must display the project listing.
+
+The screen must provide:
+
+- Project listing.
+- Search.
+- Filters.
+- Create Project.
+- View Project.
+- Edit Project.
+- Project status visibility.
+- Pagination, where required.
+
+Do not create separate navigation entries or sub-module cards for project registration, details, lifecycle, milestones, schedule, status or project manager assignment.
+
+### Default Project Listing
+
+Display the five project records already seeded in Project Master.
+
+The listing must contain:
+
+- Project Code.
+- Project / Client.
+- Project Description.
+- Project Manager.
+- Construction Completion Date.
+- Project Value.
+- Project Budget.
+- EOT.
+- Project Status.
+
+Use the existing records from the shared `projects` collection.
+
+Do not create duplicate project records.
+
+Do not invent missing values.
+
+Financial fields must remain blank until entered.
+
+### Create Project
+
+Provide a prominent Create Project action on the project listing screen.
+
+When clicked, open the existing reusable right-side SlideOverForm over the listing.
+
+Support the following fields:
+
+- Project Code.
+- Client.
+- Project Description.
+- Project Manager.
+- Project Value.
+- Project Start Date.
+- Construction Completion Date.
+- Revised Completion Date.
+- EOT.
+
+Field behaviour:
+
+- Project Code must be unique.
+- Client must be selected from Customer Master.
+- Project Manager must be selected from available project manager records.
+- Do not invent customer or employee records.
+- Do not introduce unconfirmed mandatory fields or default values.
+- Financial values must remain blank until entered by an authorized user.
+
+On Save:
+
+1. Validate supported mandatory information.
+2. Create the project record in the shared `projects` collection.
+3. Make the project available to Budget & Cost Control and subsequent transaction modules.
+4. Refresh the listing.
+5. Display a success notification.
+
+On Discard, close the form without saving.
+
+## 3. PROJECT DETAIL VIEW
+
+When the user clicks a project from the listing, open the selected project's dedicated detail view within the same Project Management workspace.
+
+This must be a detail view of the selected project, not another module or a separate project record.
+
+Provide a clear project header showing:
+
+- Project Code.
+- Project Description.
+- Client.
+- Project Manager.
+- Project Status.
+
+Organize the project information into the following sections within this single detail screen.
+
+### A. Project Overview
+
+Display the key project information:
+
+- Project Code.
+- Client.
+- Project Description.
+- Project Manager.
+- Project Value.
+- Project Budget.
+- Project Status.
+- Construction Completion Date.
+- Revised Completion Date.
+- EOT.
+
+Values must be retrieved from the selected project and linked records.
+
+Do not manually duplicate information maintained elsewhere.
+
+### B. Project Details
+
+Display and allow authorized users to maintain the project's available information.
+
+Include:
+
+- Project identification.
+- Client information.
+- Project description.
+- Project manager.
+- Project dates.
+- Project value.
+- Project budget.
+- EOT.
+
+Use the shared project record.
+
+### C. Project Lifecycle
+
+Provide a section to view the available project lifecycle information.
+
+The confirmed business context is that project management starts after contract confirmation.
+
+Do not invent lifecycle stages, approval transitions or completion rules.
+
+Use actual project and transaction information as it becomes available.
+
+Where lifecycle rules have not been configured, display:
+
+"Client confirmation required".
+
+### D. Project Milestones
+
+Provide the ability to add, view and edit milestone information associated with the selected project.
+
+Allow users to enter milestone details and relevant dates.
+
+Do not prepopulate invented milestone names, percentages, completion rules or dependencies.
+
+### E. Project Schedule
+
+Provide a schedule section associated with the selected project.
+
+Use project dates maintained in Project Registration.
+
+Allow users to maintain available scheduling information.
+
+Do not invent task names, work breakdown structures, milestone dates or scheduling dependencies.
+
+The project schedule will support the subsequent Manpower Planning workflow.
+
+### F. Project Status
+
+Display the project's available status using actual project information and connected business transactions.
+
+Do not invent status transitions or project completion percentages.
+
+Where status rules are not defined, display:
+
+"Rule to be confirmed".
+
+### G. Project Manager Assignment
+
+Display the currently assigned project manager.
+
+Allow authorized users to update the project manager using available project manager records.
+
+The assignment must update the same shared project record.
+
+Do not create a separate project manager assignment record that duplicates the project information.
+
+## 4. PROJECT DETAIL SCREEN INTERACTION
+
+Use a suitable internal layout to navigate between the seven project information sections.
+
+Recommended options:
+
+- Internal vertical section navigation.
+- Organized expandable sections.
+- Clearly separated project information panels.
+
+The seven sections must remain within the selected project's detail workspace.
+
+Do not use the main sidebar for these functions.
+
+Do not create horizontal pill navigation.
+
+Provide a clear way to return to the project listing.
+
+---
+
+# PART B — BUDGET & COST CONTROL
+
+## 5. BUSINESS PURPOSE
+
+Budget & Cost Control enables Poratha to prepare, allocate, submit, approve, revise and monitor project budgets.
+
+The budget is structured using the existing Cost Code Master hierarchy:
+
+C-Code → S-Code.
+
+The module must support:
+
+- Project budget preparation.
+- Cost code-wise budget allocation.
+- Monthly budget phasing.
+- Budget submission and approval.
+- Budget revision and version control.
+- Cost commitment tracking.
+- Actual cost tracking.
+- Budget versus commitment.
+- Budget versus actual.
+- Remaining budget.
+- Project cost analysis.
+- Project profitability.
+- Cost variance analysis.
+
+Budget & Cost Control must consolidate information from the connected transaction modules.
+
+It must not create duplicate purchase orders, invoices, payments, inventory transactions or financial records.
+
+## 6. BUDGET & COST CONTROL NAVIGATION
+
+Create a separate main module named:
+
+**Budget & Cost Control**
+
+When the user clicks this main module, display a landing page containing the following sub-modules, grouped logically.
+
+### Budget Management
+1. Project Budget.
+2. Budget Allocation.
+3. Budget Approval.
+4. Budget Revision.
+5. Cost Code-wise Budget.
+
+### Cost Monitoring
+6. Commitment Tracking.
+7. Actual Cost Tracking.
+8. Budget vs. Commitment.
+9. Budget vs. Actual.
+10. Remaining Budget.
+
+### Project Financial Analysis
+11. Project Cost Analysis.
+12. Project Profitability.
+13. Cost Variance Analysis.
+
+Each sub-module must open its own workspace.
+
+Listing, viewing, searching, filtering, creating and editing are features within a sub-module, NOT additional sub-modules.
+
+Do not display these sub-modules as horizontal pill tabs.
+
+---
+
+# PART C — PROJECT BUDGET CREATION
+
+## 7. PROJECT BUDGET LISTING
+
+The Project Budget workspace must display existing budget records.
+
+The listing must contain the following client-defined header fields:
+
+- Ref No.
+- Project Code.
+- Project Under.
+- Client.
+- Start Date.
+- Status.
+- Project Incharge.
+- Job Scope.
+- Revision.
+
+Use the client's revision naming convention:
+
+**REV-xx**
+
+Do not create fictional budget records or financial values.
+
+If no budget records exist, show a proper empty state and a Create Budget action.
+
+## 8. BUDGET CREATION FORM
+
+When the user selects Create Budget, open a dedicated budget creation workspace.
+
+This may be a full processing screen because budget allocation and monthly phasing require a larger working area.
+
+The budget must be associated with an existing project.
+
+When a project is selected, retrieve its available information from the shared `projects` collection.
+
+Do not ask users to re-enter information already maintained in Project Management.
+
+### Budget Proposal Header
+
+Use these exact fields:
+
+| Field | Behaviour |
+|---|---|
+| Ref No | Maintain the budget reference number. |
+| Project Code | Select an existing project. |
+| Project Under | Maintain the project-under information in the client's format. |
+| Client | Retrieve the associated client from Project Management. |
+| Start Date | Use the project start date where available. |
+| Status | Display the budget status. |
+| Project Incharge | Retrieve the assigned project manager. |
+| Job Scope | Maintain the job scope. |
+| Revision | Maintain the REV-xx revision reference. |
+
+Do not invent default values or unsupported mandatory validation rules.
+
+---
+
+# PART D — COST CODE-WISE BUDGET ALLOCATION
+
+## 9. COST CODE STRUCTURE
+
+Use the existing Cost Code Master created in Step 2.
+
+The budget must use the established two-level structure:
+
+**Parent C-Code → Child S-Code**
+
+The eleven parent C-Codes are:
+
+| C-Code | Description |
+|---|---|
+| 1001 | Manpower Cost |
+| 1002 | Administrative Expenses |
+| 1003 | Equipment Cost |
+| 1004 | Machineries Cost |
+| 1005 | Logistics |
+| 1006 | Procurement & Purchase |
+| 1007 | Sub-Contractor Payment |
+| 1008 | Asset Expenses |
+| 1009 | Maintenance |
+| 1010 | Site Expenses |
+| 1011 | Petty Cash |
+
+All child S-Codes must come from the existing Cost Code Master, imported from the supplied workbook's BUDGET MONTHLY sheet.
+
+Do not create, rename, remove or modify the source S-Codes.
+
+Do not create an alternative EQ-code structure.
+
+Equipment must use C-Code 1003 and its corresponding S-Codes.
+
+## 10. BUDGET ALLOCATION SCREEN
+
+Allow the user to:
+
+1. Select a parent C-Code.
+2. View its corresponding S-Codes.
+3. Select the relevant S-Codes.
+4. Enter budget amounts.
+5. View monthly allocation.
+6. Review the total allocation.
+
+Display the hierarchy clearly.
+
+Each S-Code must have its own budget allocation.
+
+Do not create a separate cost-code list inside Budget & Cost Control.
+
+All selections must reference the shared `costCodes` collection.
+
+### Budget Amounts
+
+All budget amounts must initially remain blank.
+
+Allow users to enter the actual budget values.
+
+Calculate the S-Code budget total from its monthly allocations.
+
+Calculate the overall project budget from the saved S-Code allocations.
+
+Do not invent budget amounts or allocations.
+
+---
+
+# PART E — MONTHLY BUDGET PHASING
+
+## 11. DYNAMIC MONTHLY ALLOCATION
+
+Monthly budget phasing must be maintained at S-Code level.
+
+Use:
+
+- Project Start Date.
+- Project End / Construction Completion Date.
+- Selected S-Code.
+- Month.
+- Budget Amount.
+
+Generate monthly columns dynamically based on the selected project's start and end dates.
+
+Do not copy the workbook's existing month headers as fixed dates.
+
+### Required Behaviour
+
+- Each S-Code must support monthly budget entry.
+- Users must be able to enter amounts against individual months.
+- The system must calculate the total for each S-Code from its monthly values.
+- The system must calculate the total project budget from the S-Code allocations.
+- Users must be able to review the monthly allocation before saving.
+
+Do not automatically distribute amounts across months.
+
+Do not create assumed budget allocations.
+
+If project dates are missing or insufficient to generate a date range, show a clear validation message and do not generate an assumed date range.
+
+---
+
+# PART F — BUDGET SUBMISSION, APPROVAL AND REVISION
+
+## 12. BUDGET APPROVAL
+
+Implement the following budget status flow:
+
+Draft → Submitted → Approved / Rejected.
+
+### Draft
+
+A newly created budget must be saved as Draft.
+
+### Submit
+
+When the user selects Submit:
+
+- Validate the available budget information.
+- Preserve the submitted budget version.
+- Change the status to Submitted.
+- Make the budget available for review.
+
+### Approve / Reject
+
+Provide two actions:
+
+- Approve.
+- Reject.
+
+This is a single approval action.
+
+Do not invent approver names, approval levels or a multi-level approval hierarchy.
+
+Display the badge:
+
+"Approval levels – to be confirmed".
+
+On approval:
+
+- Change the budget status to Approved.
+- Preserve the approved budget version.
+- Make the approved budget available to connected cost-control calculations and subsequent modules.
+
+On rejection:
+
+- Change the status to Rejected.
+- Preserve the submitted record.
+
+Only an approved budget must be treated as the approved budget for cost-control calculations.
+
+## 13. BUDGET REVISION
+
+Allow users to create a revised budget.
+
+Use the revision naming convention:
+
+REV-xx.
+
+A revision must create a new budget version.
+
+Do not overwrite an earlier submitted or approved version.
+
+Preserve historical versions.
+
+The system must identify the applicable current approved budget version for reporting and calculations.
+
+Do not invent revision approval levels.
+
+---
+
+# PART G — BUDGET MONITORING AND COST CONTROL
+
+## 14. COST CODE-WISE BUDGET
+
+Provide a workspace to review budget allocations by C-Code and S-Code.
+
+Display:
+
+- C-Code.
+- C-Code Description.
+- S-Code.
+- S-Code Description.
+- Budget Amount.
+- Monthly Budget Allocation.
+- Total Allocated Amount.
+
+Allow users to expand and collapse parent C-Codes to view their child S-Codes.
+
+All figures must come from saved budget records.
+
+Do not create independent or duplicate budget values in this workspace.
+
+## 15. COMMITMENT TRACKING
+
+Display purchase commitments from actual Purchase Order records.
+
+Important business rule:
+
+A Purchase Requisition does not create a commitment.
+
+Cost Committed arises only when a Purchase Order is approved.
+
+Use this proposed calculation:
+
+Cost Committed (open) = Approved PO Value − Posted Invoice Value against that PO.
+
+Minimum value: zero.
+
+Label this calculation:
+
+"Proposed – pending client validation".
+
+Do not generate fictional purchase commitments.
+
+Until Procurement is implemented, show an appropriate empty state or zero based on the available records.
+
+## 16. ACTUAL COST TRACKING
+
+Display actual project expenditure derived from posted supplier invoices.
+
+Use this proposed rule:
+
+Cost Incurred = Posted supplier invoices tagged to the project and cost code.
+
+Important distinctions:
+
+- Uploaded invoices are not actual costs.
+- AI-extracted invoices are not actual costs.
+- Unverified invoices are not actual costs.
+- Only posted invoices contribute to Cost Incurred.
+
+Display actual costs by project, C-Code and S-Code wherever the transaction data supports this.
+
+Do not double-count material purchases through both invoices and material issues.
+
+Label this calculation:
+
+"Proposed – pending client validation".
+
+Until Finance is implemented, show an appropriate empty state or zero based on the available records.
+
+## 17. BUDGET VS. COMMITMENT
+
+Compare the approved budget with open purchase commitments.
+
+Display:
+
+- Project.
+- C-Code.
+- S-Code.
+- Approved Budget.
+- Cost Committed.
+- Available Budget after Commitment.
+
+Use the same approved budget and PO records used elsewhere.
+
+Do not manually enter duplicate commitment figures.
+
+## 18. BUDGET VS. ACTUAL
+
+Compare the approved budget against actual posted supplier invoice costs.
+
+Display:
+
+- Approved Budget.
+- Cost Incurred.
+- Cost Committed (open).
+- Combined committed and incurred position.
+- Variance.
+
+Use the proposed calculation:
+
+Variance = Approved Budget − (Cost Incurred + Cost Committed).
+
+Label this calculation:
+
+"Proposed – pending client validation".
+
+Do not invent financial figures.
+
+## 19. REMAINING BUDGET
+
+Use the proposed calculation:
+
+Remaining Budget = Approved Budget − Cost Incurred − Cost Committed (open).
+
+Display the remaining budget at:
+
+- Project level.
+- C-Code level.
+- S-Code level.
+
+Use the same underlying budget and transaction records.
+
+Do not create manually maintained remaining-budget values.
+
+Label the calculation:
+
+"Proposed – pending client validation".
+
+## 20. PROJECT COST ANALYSIS
+
+Provide a consolidated project cost analysis workspace.
+
+Display actual and committed project cost information from connected modules.
+
+Use the client's terminology:
+
+- Cost Committed.
+- Cost Incurred.
+- Pending Poratha Payment to Others.
+
+Do not invent additional cost categories or financial values.
+
+Do not duplicate transaction records.
+
+## 21. PROJECT PROFITABILITY
+
+Use the following proposed calculations:
+
+Expected Profit = Project Value − Project Budget.
+
+Expected Profit % = Expected Profit ÷ Project Value.
+
+If Project Value is blank, Expected Profit % must remain blank.
+
+If required values are missing, do not calculate or display a fabricated result.
+
+Label both calculations:
+
+"Proposed – pending client validation".
+
+## 22. COST VARIANCE ANALYSIS
+
+Provide a workspace to identify differences between approved budgets and committed/incurred costs.
+
+Use the same proposed variance formula:
+
+Variance = Approved Budget − (Cost Incurred + Cost Committed).
+
+Display actual values only.
+
+Do not introduce unconfirmed variance thresholds or automatic approval rules.
+
+---
+
+# PART H — FINANCIAL LOGIC AND VALIDATION
+
+## 23. PROPOSED FINANCIAL RULES
+
+The following rules are proposed and pending client validation.
+
+Display a clear label:
+
+"Proposed – pending client validation".
+
+Do not present these calculations as confirmed Poratha accounting policies.
+
+### A. Cost Committed
+
+PR does not create commitment.
+
+Only an approved PO creates Cost Committed.
+
+Cost Committed (open) = Approved PO Value − Posted Invoice Value against that PO.
+
+Minimum value: zero.
+
+### B. Cost Incurred
+
+Cost Incurred = Posted supplier invoices tagged to the project and cost code.
+
+Invoice upload and extraction do not create actual costs.
+
+Human verification must happen before posting.
+
+### C. Material Issue
+
+Project Material Issue reduces stock and records the quantity against the project.
+
+The financial valuation of issued stock is:
+
+"Costing method to be confirmed".
+
+Do not add material issue value to Cost Incurred, to avoid double counting.
+
+### D. Remaining Budget
+
+Remaining Budget = Approved Budget − Cost Incurred − Cost Committed (open).
+
+### E. Variance
+
+Variance = Approved Budget − (Cost Incurred + Cost Committed).
+
+### F. Expected Profit
+
+Expected Profit = Project Value − Project Budget.
+
+Expected Profit % = Expected Profit ÷ Project Value.
+
+If Project Value is blank, keep the percentage blank.
+
+### G. Unconfirmed Calculations
+
+The following fields must display:
+
+"Rule to be confirmed".
+
+Do not invent formulas for:
+
+- EV.
+- PV.
+- SPI.
+- CPI.
+- EAC.
+- Forecast Profit.
+- Forecast Profit %.
+- Progress %.
+
+Do not introduce additional formulas or financial thresholds.
+
+---
+
+# PART I — SHARED DATA ARCHITECTURE
+
+## 24. SHARED COLLECTIONS
+
+Continue using the central Zustand store and existing localStorage persistence.
+
+Use these shared collections:
+
+- `projects`
+- `customers`
+- `employees`
+- `costCodes`
+- `budgets`
+
+Use the existing collection names and schemas established in the previous implementation.
+
+Do not create duplicate collections for Project Management or Budget & Cost Control.
+
+### Project Relationships
+
+- Project Master and Project Management must read and write the same `projects` collection.
+- Project manager assignment must update the same project record.
+- Milestones and schedule information must remain associated with the correct project ID.
+- Budget records must reference the project ID.
+- Budget allocation must reference existing C-Codes and S-Codes.
+- Subsequent procurement and finance transactions must reference the same project and cost-code records.
+
+### Budget Versioning
+
+Store budget versions in the existing versioned `budgets` collection.
+
+Each version must retain:
+
+- Budget reference.
+- Project reference.
+- Revision number.
+- Budget header information.
+- Cost-code allocations.
+- Monthly allocations.
+- Status.
+- Submission and approval information where available.
+
+Do not overwrite historical versions.
+
+### Data Integrity
+
+All modules must retrieve shared information by record ID.
+
+Do not create duplicate project, customer, project manager or cost-code records.
+
+---
+
+# PART J — UI AND USER EXPERIENCE
+
+## 25. DESIGN CONSISTENCY
+
+Follow the existing ROCKEYE application design established in Step 1.
+
+Maintain:
+
+- Fixed application header.
+- Persistent left sidebar.
+- Consistent page spacing.
+- Consistent typography.
+- Consistent status badges.
+- Consistent listing layouts.
+- Consistent forms.
+- Consistent empty states.
+- Consistent success and error notifications.
+
+Do not redesign the application shell.
+
+## 26. PROJECT MANAGEMENT UI
+
+Project Management must have:
+
+- One default project listing screen.
+- One Create Project action.
+- One selected-project detail view.
+- Internal project information sections.
+
+Do not create separate module navigation for the seven project functions.
+
+## 27. BUDGET & COST CONTROL UI
+
+Budget & Cost Control must have its own landing page with the thirteen sub-modules grouped logically.
+
+Each sub-module must open its own workspace.
+
+Use:
+
+- ListingTable for listings.
+- SlideOverForm for standard Create and Edit operations.
+- Dedicated processing screens for complex budget creation and approval.
+- StatusBadge for workflow status.
+- EmptyState for missing records.
+- WorkflowStepper for budget processing.
+
+Every button must have a defined action and system response.
+
+Remove decorative or non-functional controls.
+
+---
+
+# PART K — ACCEPTANCE TESTING
+
+## 28. PROJECT MANAGEMENT TESTS
+
+Verify the following:
+
+1. Clicking Project Management opens one unified project listing screen.
+2. All five seeded projects are displayed.
+3. Create Project opens a right-side form.
+4. A new project can be created and saved.
+5. Project Code uniqueness is validated.
+6. Client selection uses Customer Master.
+7. Project Manager selection uses available project manager records.
+8. Clicking a project opens its detail view.
+9. All seven project information sections are accessible within that detail view.
+10. Project details can be edited without creating duplicate records.
+11. Project manager assignment updates the shared project record.
+12. Milestones and schedule information remain associated with the correct project.
+13. Project information is available to Budget & Cost Control.
+
+## 29. BUDGET & COST CONTROL TESTS
+
+Verify the following:
+
+1. The Budget & Cost Control landing page displays all thirteen sub-modules.
+2. A budget can be created against an existing project.
+3. Client and project manager information are retrieved from Project Management.
+4. All eleven parent C-Codes are available.
+5. All workbook-derived S-Codes are available under the correct parent.
+6. Budget amounts can be entered against S-Codes.
+7. Monthly budget columns are generated dynamically from project dates.
+8. Monthly allocations calculate the corresponding S-Code total.
+9. Total project budget is calculated from saved allocations.
+10. A budget can be saved as Draft.
+11. A budget can be submitted.
+12. A budget can be approved or rejected.
+13. Approved budget versions are preserved.
+14. Budget revision creates a new version without overwriting historical records.
+15. Budget monitoring screens use the same approved budget records.
+16. Commitment and actual cost calculations use connected transaction records when those modules are implemented.
+17. Proposed formulas are visibly labelled.
+18. No fictional financial data is displayed.
+19. Missing or unconfirmed information is clearly identified.
+
+## 30. IMPLEMENTATION COMPLETION REPORT
+
+After implementation, provide a concise completion report covering:
+
+- Project Management implementation.
+- Project listing and creation.
+- Project detail view and internal sections.
+- Project-to-budget connectivity.
+- Budget creation and cost-code allocation.
+- Monthly budget phasing.
+- Budget submission and approval.
+- Budget revision and versioning.
+- Budget monitoring and proposed calculations.
+- Shared data architecture.
+- Acceptance tests completed.
+- Any incomplete or unconfirmed functionality.
+
+Do not claim a feature is completed unless it has been implemented and tested.
+
+---
+
+# FINAL INSTRUCTION
+
+Implement ONLY:
+
+1. Project Management.
+2. Budget & Cost Control.
+
+Preserve the existing application shell and Master Data functionality.
+
+Do not begin Procurement, Inventory or Finance in this step.
+
+Do not add fictional data, unsupported business rules, approval hierarchies or financial calculations.
+
+Ensure that Project Management and Budget & Cost Control are connected through shared project records and shared cost-code records.
+
+After completing this implementation, stop and wait for approval before proceeding to Step 4: Procurement and Inventory Management.
